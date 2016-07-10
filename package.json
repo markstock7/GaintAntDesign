@@ -1,0 +1,34 @@
+{
+  "name": "growing-front-lib",
+  "version": "1.0.0",
+  "description": "GrowingIo 前端库",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mark Stock",
+  "license": "MIT",
+  "devDependencies": {
+    "lesshint": "^1.5.2"
+  },
+  "dependencies": {
+    "antd": "^1.6.4"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ],
+    "plugins": [
+      "add-module-exports"
+    ]
+  },
+  "scripts": {}
+}
