@@ -1,6 +1,7 @@
 import React from 'react';
-import { Icon as AntdIcon } from 'antd';
 
-export default class Icon extends AntdIcon {
+export default props => {
   let { type, className = '', ...other } = props;
-}
+  className += ` anticon anticon-${type}`;
+  return <i className={className} {...other} />;
+};

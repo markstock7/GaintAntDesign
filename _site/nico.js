@@ -10,7 +10,7 @@ var webpackConfig = require('./webpack.deploy.config');
 var webpackCompiler = webpack(webpackConfig);
 var handler;
 
-
+// 统计加载进度
 webpackCompiler.apply(new ProgressPlugin(function(percentage, msg) {
   var stream = process.stderr;
   if (stream.isTTY && percentage < 0.71) {
@@ -22,7 +22,7 @@ webpackCompiler.apply(new ProgressPlugin(function(percentage, msg) {
   }
 }));
 
-// {{ settings for nico
+// settings for nico
 exports.site = {
   name: package.title,
   description: package.description,
@@ -41,8 +41,8 @@ exports.theme = 'site';
 exports.source = process.cwd();
 exports.output = path.join(process.cwd(), '_site');
 exports.permalink = '{{directory}}/{{filename}}';
-exports.antdCssUrl = '../dist/' + package.name + '-' + package.version + exports.minimized + '.css';
-exports.antdJsUrl = '../dist/' + package.name + '-' + package.version + exports.minimized + '.js';
+exports.giuiCssUrl = '../dist/' + package.name + '-' + package.version + exports.minimized + '.css';
+exports.giuiJsUrl = '../dist/' + package.name + '-' + package.version + exports.minimized + '.js';
 
 exports.ignorefilter = function(filepath, subdir) {
   var extname = path.extname(filepath);
