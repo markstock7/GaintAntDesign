@@ -33,7 +33,8 @@
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
     "nico-jsx": "^0.9.0",
-    "extract-text-webpack-plugin": "^1.0.1"
+    "extract-text-webpack-plugin": "^1.0.1",
+    "svg-sprite-loader": "^0.0.25"
   },
   "dependencies": {
     "antd": "^1.6.4",
@@ -45,7 +46,20 @@
     "react-router": "^2.5.2",
     "object-assign": "^4.1.0",
     "classname": "^0.0.0",
-    "classnames": "^2.2.5"
+    "classnames": "^2.2.5",
+    "clipboard": "^1.5.12",
+    "json-loader": "^0.5.4",
+    "css": "^2.2.1",
+    "autoprefixer-loader": "^3.2.0",
+    "less": "^2.7.1",
+    "svg-sprite": "^1.3.3",
+    "url": "^0.11.0",
+    "style-loader": "^0.13.1",
+    "less-loader": "^2.2.3",
+    "file-loader": "^0.9.0",
+    "css-loader": "^0.23.1",
+    "svg-loader": "^0.0.2",
+    "url-loader": "^0.5.7"
   },
   "pre-commit": [
     "lint"
