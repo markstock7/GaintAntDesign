@@ -7,8 +7,9 @@
 ---
 
 采用 iconfont 和 svg 构建图标
-- 公司自定义的svg图标均放在icons目录下
+- 公司自定义的svg图标均放在components/icon/icons目录下
 - 文件命名规则为`[icon名]-[形状可选]-[描线与否]-[方向可选].svg`
+- 优先使用自定义的图标，当找不到的时候回使用antd图标
 
 ## 图标的命名规范
 
@@ -23,14 +24,17 @@
 使用 `<Icon />` 标签声明组件，指定图标对应的 type 属性，示例代码如下:
 
 ```html
-<Icon type="link" />
+<Icon type="link" size="n" />
 ```
+## 尺寸选择
 
-最终会渲染为：
+目前支持5种尺寸的图标选择，只需设置size为1-5即可
 
-```html
-<i class="anticon anticon-${type}"></i>
-```
+<div id="icons-size"></div>
+
+## 添加更多svg图标
+
+将svg文件存储在/icons目录下，并将其名称存储在／config/icons.js中的icons数组中即可
 
 ## 图标列表
 
@@ -66,7 +70,7 @@ ul.anticons-list li {
   color: #5C6B77;
   transition: all 0.2s ease;
   position: relative;
-  padding-top: 10px;
+  padding-top: 20px;
 }
 ul.anticons-list li:hover {
   background-color: #4BB8FF;
@@ -129,7 +133,7 @@ const CopyableIcon = React.createClass({
     return (
       <Clip component="li" data-clipboard-text={this.getCopyCode(this.props.type)}
         onSuccess={this.onCopied} className={this.state.justCopied ? 'copied' : ''}>
-        <Icon type={this.props.type} />
+        <Icon type={this.props.type} size="3"/>
         <span className="anticon-class">{this.props.type}</span>
       </Clip>
     );
@@ -151,7 +155,10 @@ const IconSet = React.createClass({
   }
 });
 
-const icons = ['face', 'phone', 'help', 'heatmap-mode'];
+const icons = ['audit', 'bell', 'human', 'phone', 'pie-chart', 'android'];
 
 ReactDOM.render(<IconSet icons={icons} />, document.getElementById('iconset-common'));
+
+ReactDOM.render(<div><Icon type="face" size="1" /> <Icon type="face" size="2" /> <Icon type="face" size="3" /> <Icon type="face" size="4" /> <Icon type="face" size="5" /></div>, document.getElementById('icons-size'));
+
 `````

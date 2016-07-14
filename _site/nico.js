@@ -112,7 +112,6 @@ exports.writers = [
   'nico-jsx.StaticWriter',
   'nico-jsx.FileWriter'
 ];
-// end settings }}
 
 process.on('uncaughtException', function(err) {
   console.log(err);

@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
+var pkg = require('./package');
 
 var entry = {};
 entry['index'] = './scripts/importCss.js';
@@ -37,12 +38,20 @@ module.exports = {
       loader: ExtractTextPlugin.extract(
         'css?sourceMap&-minimize!' + 'autoprefixer-loader'
       )
+    }, {
+      test: /\.svg$/,
+      loader: 'svg-sprite?' + JSON.stringify({
+        name: '[name]',
+        prefixize: true
+      })
+    }, {
+      test: /\.(png|jpg)$/,
+      loader: "file?name=img-[sha512:hash:base64:7].[ext]"
     }]
   },
-
   plugins: [
-    new ExtractTextPlugin('[name].css')
-  ],
-
-  devtool: 'source-map'
+    new ExtractTextPlugin('[name].css'),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.SourceMapDevToolPlugin(),
+  ]
 }
