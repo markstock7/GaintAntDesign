@@ -1,7 +1,10 @@
 import React from 'react';
+import 'antd/dist/antd.css';
 
 const giui = {
-  GIcon: require('./components/icon')
+  GIcon: require('./components/icon'),
+  RichText: require('./components/richText'),
+  EditBox: require('./components/richText/EditBox')
   // Button: require('./components/button')
 }
 giui.version = require('./package.json').version;

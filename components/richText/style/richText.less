@@ -1,0 +1,162 @@
+
+// 编辑器outter wrapper
+.RichEditor-root {
+    background: #fff;
+    border: 1px solid #ddd;
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    padding: 15px 15px 6px 15px;
+}
+
+// 编辑器内容
+.RichEditor-editor {
+  .alignment-left();
+  .alignment-center();
+  .alignment-right();
+}
+
+
+.footer-toolbar {
+  text-align: right;
+  padding: 10px;
+}
+
+
+.RichEditor-controls {
+    font-family: 'Helvetica', sans-serif;
+    font-size: 14px;
+    margin-bottom: 5px;
+    user-select: none;
+    display: inline-block;
+}
+
+.RichEditor-styleButton {
+    color: #999;
+    cursor: pointer;
+    margin-right: 16px;
+    padding: 2px 0;
+    display: inline-block;
+}
+
+.RichEditor-activeButton {
+    color: #5890ff;
+    font-weight: bold;
+}
+
+.RichEditor-editor {
+  border-top: 1px solid #ddd;
+  cursor: text;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+/**
+ * 顶部工具栏
+ */
+.gio-editor-toolbar {
+  border-bottom: 1px solid #eeeeee;
+  background: #ffffff;
+  width: 100%;
+  text-align: center;
+  .toolbar-item {
+    display: inline-block;
+    width: 46px;
+    height: 40px;
+    outline: none;
+    color: #666;
+    font-size: 15px;
+    line-height: 40px;
+    vertical-align: middle;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      color: #333;
+    }
+    &.active {
+      color: #5890ff;
+      font-weight: bold;
+    }
+  }
+  .separator {
+    display: inline-block;
+    background: #cfcfcf;
+    width: 1px;
+    height: 18px;
+    margin: 11px 15px;
+    vertical-align: middle;
+  }
+
+  .color-controls-list {
+    display: inline-block;
+    .ant-select-selection__rendered {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+    .ant-select-dropdown-menu-item {
+      padding: !important;
+    }
+    .ant-select-arrow {
+      display: none;
+    }
+    .selectedColor {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      border: 1px solid #333;
+      margin-top: 7px;
+    }
+  }
+
+  .font-size-controls-list {
+    display: inline-block;
+    margin-right: 20px;
+  }
+}
+
+
+// 段落坐对齐
+.alignment-left() {
+  .alignment-left {
+    .public-DraftStyleDefault-block {
+      text-align: left;
+    }
+  }
+}
+
+// 段落居中对齐
+.alignment-center() {
+  .alignment-center {
+    .public-DraftStyleDefault-block {
+      text-align: center;
+    }
+  }
+}
+
+// 段落右对齐
+.alignment-right() {
+  .alignment-right {
+    .public-DraftStyleDefault-block {
+      text-align: right;
+    }
+  }
+}
+
+/**
+ * 颜色table
+ */
+.colorsTable {
+  .color {
+    background-color: red;
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    cursor: pointer;
+  }
+  td {
+    height: 20px;
+  }
+}
