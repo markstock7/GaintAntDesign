@@ -1,22 +1,20 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding, Modifier, convertToRaw } from 'draft-js';
+import { Editor, EditorState, RichUtils,  Modifier, convertToRaw } from 'draft-js';
 import * as utils from './utils';
 import { BLOCKCONTROLS, INLINECONTROLS, COLORCONTROLS, FONTSIZES  } from './controlsConfig';
 import BlockStyleControlList from './controls/BlockStyleControlList';
 import InlineStyleControlList from './controls/InlineStyleControlList';
 import ColorStyleControlList from './controls/ColorStyleControlList';
 import FontSizeStyleControlList from './controls/FontSizeStyleControlList';
-// import { stateToHTML } from 'draft-js-export-html';
 import Button from 'antd/lib/button';
 
 require('./style');
-
 
 // 合并自定义样式
 const CustomStyleMap = utils.customStyleMap(COLORCONTROLS, FONTSIZES);
 
 
-export default class RichText extends React.Component {
+export default class RichEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,7 +24,6 @@ export default class RichText extends React.Component {
     this.focus = () => this.refs.editor.focus();
     this.onChange = (editorState) => { this.setState({editorState}); }
     this.handleKeyCommand = (command) => this.__handleKeyCommand(command);
-
     this.getBlockStyle = (block) => this._getBlockStyle(block);
     this.toggleBlockType = (type) => this._toggleBlockType(type);
     this.toggleInlineStyle = (style) => this._toggleInlineStyle(style);
@@ -132,7 +129,6 @@ export default class RichText extends React.Component {
     this.onChange(nextEditorState);
   }
 
-
   _toggleFontSize(toggledColor) {
     const { editorState } =this.state;
     const selection = editorState.getSelection();
@@ -170,9 +166,6 @@ export default class RichText extends React.Component {
    * 保存的时候解析出html，然后调用onSave函数
    */
   __onSave() {
-    // var html = stateToHTML(this.state.editorState.getCurrentContent());
-    // console.debug(convertToRaw());
-    // console.debug('html', html);
     var raw = this.state.editorState.getCurrentContent();
     if (this.props.onSave) {
       this.props.onSave(convertToRaw(raw));

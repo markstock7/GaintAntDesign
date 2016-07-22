@@ -1,22 +1,17 @@
 import React from 'react';
-import { Editor, EditorState, RichUtils, getDefaultKeyBinding, convertFromRaw } from 'draft-js';
-import { BLOCKCONTROLS, INLINECONTROLS, COLORCONTROLS, FONTSIZES  } from './controlsConfig';
-
+import { Editor, EditorState, convertFromRaw } from 'draft-js';
+import { COLORCONTROLS, FONTSIZES  } from './controlsConfig';
 import * as utils from './utils';
+
 // 合并自定义样式
 const CustomStyleMap = utils.customStyleMap(COLORCONTROLS, FONTSIZES);
 
-export default class EditBox extends React.Component {
+export default class ViewBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: props.data ? EditorState.createWithContent(convertFromRaw(props.data)) : EditorState.createEmpty(),
-      visible: true
+      editorState: props.data ? EditorState.createWithContent(convertFromRaw(props.data)) : EditorState.createEmpty()
     };
-
-    this.onChange = (editorState) => {
-      this.setState({editorState});
-    }
     this.getBlockStyle = (block) => this._getBlockStyle(block);
   }
 
@@ -32,17 +27,15 @@ export default class EditBox extends React.Component {
   }
 
   render() {
-    const boxStyle = {
-      display: this.state.visible ? 'block' : 'hidden'
-    }
     return (
-      <div className='RichEditor-root' style={boxStyle}>
+      <div className='RichEditor-editor' style={{cursor: 'auto'}}>
         <Editor
           blockStyleFn={this.getBlockStyle}
           editorState={this.state.editorState}
           onChange={this.onChange}
           placeholder={this.props.placeholder || ''}
           customStyleMap={CustomStyleMap}
+          readOnly={true}
           ref='editor'
         />
       </div>

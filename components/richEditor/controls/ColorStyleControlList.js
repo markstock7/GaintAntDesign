@@ -1,5 +1,4 @@
 import React from 'react';
-import Select from 'antd/lib/select';
 import Popover from 'antd/lib/popover';
 
 export default class ColorStyleControlList extends React.Component {

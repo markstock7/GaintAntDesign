@@ -3,9 +3,7 @@ import 'antd/dist/antd.css';
 
 const giui = {
   GIcon: require('./components/icon'),
-  RichText: require('./components/richText'),
-  EditBox: require('./components/richText/EditBox')
-  // Button: require('./components/button')
+  RichEditor: require('./components/RichEditor')
 }
 giui.version = require('./package.json').version;
 

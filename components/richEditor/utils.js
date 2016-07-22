@@ -1,4 +1,4 @@
-import { EditorState, RichUtils, getDefaultKeyBinding, Modifier } from 'draft-js';
+import { EditorState,  Modifier } from 'draft-js';
 
 /**
  * 将多个对象合并为一个
