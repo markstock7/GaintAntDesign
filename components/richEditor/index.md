@@ -1,8 +1,8 @@
-# RichText
+# RichEditor
 
 - category: Components
 - chinese: 富文本框
-- type: 基本
+- type: 文本编辑与显示
 
 ---
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
@@ -10,21 +10,25 @@
 
 ## 如何使用
 ```html
-<RichEditor placeholder='这是placeholder'/>
+raw 为RawDraftContentState 类型数据， 详情查看(http://facebook.github.io/draft-js/docs/api-reference-data-conversion.html#content)
+<RichEditor placeholder='这是placeholder' onSave={(raw) => {}}/>
 <ViewBox data={raw} />
 ```
 
 ## RichEditor 示例
-居中，字号，颜色，粗体，斜体
 <div id="rich-editor"></div>
 
 
 ## ViewBox 显示，点击RichEditor保存后显示
 <div id='view-box'></div>
 
+## EditableWhiteBoard
+<div id='edit-white-borad'></div>
+
 `````jsx
 const RichEditor = giui.RichEditor;
 const ViewBox = RichEditor.ViewBox;
+const EditableWhiteBoard = RichEditor.EditableWhiteBoard;
 function onSave(raw) {
   clearViewBox();
   ReactDOM.render(<ViewBox data={raw}/>, document.getElementById('view-box'));
@@ -38,4 +42,5 @@ function clearViewBox() {
   }   
 }
 ReactDOM.render(<RichEditor placeholder='hello world' onSave={onSave}/>, document.getElementById('rich-editor'));
+ReactDOM.render(<EditableWhiteBoard />, document.getElementById('edit-white-borad'));
 `````

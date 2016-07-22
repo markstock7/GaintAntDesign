@@ -1,37 +1,42 @@
+
 // 编辑器outter wrapper
 .RichEditor-root {
-  background: #fff;
-  border: 1px solid #ddd;
-  font-family: 'Georgia', serif;
-  font-size: 14px;
-  padding: 15px 15px 6px;
-  max-width: 800px;
-  min-width: 700px;
-  width: 700px;
-  .footer-toolbar {
-    text-align: right;
-    padding: 10px;
-  }
-  .RichEditor-controls {
-    font-family: 'Helvetica', sans-serif;
+    background: #fff;
+    border: 1px solid #ddd;
+    font-family: 'Georgia', serif;
     font-size: 14px;
-    margin-bottom: 5px;
-    user-select: none;
-    display: inline-block;
-  }
+    padding: 15px 15px 6px 15px;
+    .footer-toolbar {
+      text-align: right;
+      padding: 10px;
+    }
+    .RichEditor-controls {
+        font-family: 'Helvetica', sans-serif;
+        font-size: 14px;
+        margin-bottom: 5px;
+        user-select: none;
+        display: inline-block;
+    }
 }
+
 .RichEditor-editor {
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",SimSun,sans-serif;
+  border-top: 1px solid #ddd;
   cursor: text;
   font-size: 16px;
   border: 1px solid #ddd;
   margin-top: 10px;
   padding: 10px;
   color: #000;
-  min-height: 200px;
-  max-height: 400px;
-  overflow-y: auto;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",SimSun,sans-serif;
+
+  // 编辑器内容
+  .DraftEditor-root {
+    .alignment-left();
+    .alignment-center();
+    .alignment-right();
+  }
 }
+
 /**
  * 顶部工具栏
  */
@@ -68,6 +73,7 @@
     margin: 11px 15px;
     vertical-align: middle;
   }
+
   .color-controls-list {
     display: inline-block;
     .ant-select-selection__rendered {
@@ -75,7 +81,7 @@
       padding-right: 0 !important;
     }
     .ant-select-dropdown-menu-item {
-      padding:  !important;
+      padding: !important;
     }
     .ant-select-arrow {
       display: none;
@@ -89,11 +95,41 @@
       margin-top: 7px;
     }
   }
+
   .font-size-controls-list {
     display: inline-block;
     margin-right: 20px;
   }
 }
+
+
+// 段落坐对齐
+.alignment-left() {
+  .alignment-left {
+    .public-DraftStyleDefault-block {
+      text-align: left;
+    }
+  }
+}
+
+// 段落居中对齐
+.alignment-center() {
+  .alignment-center {
+    .public-DraftStyleDefault-block {
+      text-align: center;
+    }
+  }
+}
+
+// 段落右对齐
+.alignment-right() {
+  .alignment-right {
+    .public-DraftStyleDefault-block {
+      text-align: right;
+    }
+  }
+}
+
 /**
  * 颜色table
  */

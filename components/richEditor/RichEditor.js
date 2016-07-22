@@ -167,8 +167,11 @@ export default class RichEditor extends React.Component {
    */
   __onSave() {
     var raw = this.state.editorState.getCurrentContent();
+    if (!raw.hasText()) {
+      raw = null;
+    }
     if (this.props.onSave) {
-      this.props.onSave(convertToRaw(raw));
+      this.props.onSave(raw ? convertToRaw(raw) : raw);
     }
   }
 

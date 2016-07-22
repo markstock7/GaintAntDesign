@@ -15,6 +15,14 @@ export default class ViewBox extends React.Component {
     this.getBlockStyle = (block) => this._getBlockStyle(block);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.data) {
+      this.setState({
+        editorState: EditorState.createWithContent(convertFromRaw(nextProps.data))
+      });
+    }
+  }
+
   _getBlockStyle(block) {
     let alignment = utils.getBlockAlignment(block);
     if (!block.getText()) {
@@ -28,14 +36,14 @@ export default class ViewBox extends React.Component {
 
   render() {
     return (
-      <div className='RichEditor-editor' style={{cursor: 'auto'}}>
+      <div className='ViewBox'>
         <Editor
           blockStyleFn={this.getBlockStyle}
           editorState={this.state.editorState}
           onChange={this.onChange}
           placeholder={this.props.placeholder || ''}
           customStyleMap={CustomStyleMap}
-          readOnly={true}
+          readOnly
           ref='editor'
         />
       </div>

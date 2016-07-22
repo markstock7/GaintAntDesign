@@ -1,6 +1,5 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-
 const giui = {
   GIcon: require('./components/icon'),
   RichEditor: require('./components/RichEditor')

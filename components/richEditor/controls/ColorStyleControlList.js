@@ -59,7 +59,9 @@ export default class ColorStyleControlList extends React.Component {
     }
     return (
       <table className='colorsTable' border='0' cellSpacing='1'>
-        {finalContent}
+        <tbody>
+          {finalContent}
+        </tbody>
       </table>
     );
   }
