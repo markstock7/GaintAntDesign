@@ -8,25 +8,34 @@
 import React from 'react';
 import Icon from '../icon';
 
-var ReactChildren = React.Children;
+var ReactChildren = React.Children,
+    PropTypes = React.PropTypes,
+    BubbleMenuItem;
 
-// var PropTypes = React.PropTypes;
-
-var BubbleMenuItem = React.createClass({
+BubbleMenuItem = React.createClass({
   statics: {
     __BubbleMenuItem__: true
   },
 
+  /**
+   * 默认为关闭状态，鼠标经过后进入hover状态，点击为open状态
+   */
   getInitialState() {
-    /**
-     * 默认为关闭状态，鼠标经过后进入hover状态，点击为open状态
-     */
     var state = {
       status: 'expand'
     };
     return state;
   },
 
+  propTypes: {
+    iconType: PropTypes.string,
+    _key; PropTypes.string,
+    name: PropTypes.string,
+    selectedKey: PropTypes.string,
+    enableHover: PropTypes.boolean,
+    _index: PropTypes.int
+  },
+  
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedKey !== this.props._key) {
       this.setState({

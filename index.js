@@ -4,7 +4,8 @@ const giui = {
   GIcon: require('./components/icon'),
   RichEditor: require('./components/RichEditor'),
   BubbleMenu: require('./components/bubbleMenu'),
-  VerticalTabs: require('./components/verticalTabs')
+  VerticalTabs: require('./components/verticalTabs'),
+  TestComponent: require('./components/test/TestComponent')
 };
 
 giui.version = require('./package.json').version;

@@ -18,6 +18,13 @@ GrowingIo 最值面板
 </BubbleMenu>
 ```
 
+## API
+- selectedKey
+- onItemOpen
+- onItemClose
+- _close_items
+
+
 ## 垂直面板 示例
 <div id="BubbleMenu"></div>
 <style>

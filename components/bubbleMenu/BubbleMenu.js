@@ -4,39 +4,57 @@
  * 设计: 大丹
  * 实现: markstock7
  *
+ *
  * 最开始所有的 MenuItem 均为 expand打开状态, 此时也应该关闭hover效果
  * 当其中有一个的状态为打开的时候，其它的均没有hover 拉长效果
  * 当没有 item 被打开的生活，恢复所有 item 的hover 拉长效果
  *
- * you
+ *
+ * 同时我们支持使用传递的props.defaultKey, props.enableHover 来控制menu的显示
+ * 这样可以从外部编写方法来关闭按钮功能
+ *
  */
 import React from 'react';
 import BubbleMenuItem from './BubbleMenuItem';
 
+var ReactChildren = React.Children,
+    PropTypes = React.PropTypes,
+    BubbleMenu;
 
-var ReactChildren = React.Children;
-
-var PropTypes = React.PropTypes;
-
-var BubbleMenu = React.createClass({
+BubbleMenu = React.createClass({
   statics: {
     __VerticalTabs__: true
   },
 
   propTypes: {
-    defaultKey: PropTypes.string,
+    selectedKey: PropTypes.string,
     onItemOpen: PropTypes.func,
-    onItemClose: PropTypes.func
+    onItemClose: PropTypes.func,
+    _close_items: PropTypes.boolean
   },
 
   getInitialState() {
     var state = {
       selectedKey: this.props.defaultKey,
-      enableHover: false
+      enableHover: false,
     };
     return state;
   },
 
+  componentWillMount() {
+      this._handlePaneClose = this._wrap_handlePaneClose(this.props.onItemClose);
+      this._handlePaneOpen = this._wrap_handlePaneOpen(this.props.onItemOpen);
+  },
+
+  componentWillReceiveProps(nextProps) {
+      if (nextProps._close_items) {
+          this._handlePaneClose();
+      }
+  },
+
+  /**
+   * 用于处理用户自定义函数，当用户自定义函数时调用该函数，否则忽略
+   */
   _callUserDefindFn(fn) {
     if (fn) {
       var attrs = Array.prototype.slice.call(arguments, 1);
@@ -45,6 +63,7 @@ var BubbleMenu = React.createClass({
       }, 0);
     }
   },
+
   /**
    * 当menuItem被打开的生活调用
    */
@@ -89,14 +108,15 @@ var BubbleMenu = React.createClass({
     var index = 1;
     return ReactChildren.map(this.props.children, (child) => {
       if (child.type.__BubbleMenuItem__) {
+        index++:
         return <BubbleMenuItem
           {...child.props}
           _key={child.key}
-          _index={index++}
+          _index={index}
           enableHover={this.state.enableHover}
           selectedKey={this.state.selectedKey}
-          handleClick={this._wrap_handlePaneOpen(this.props.handleClick)}
-          handlePanelClose={this._wrap_handlePaneClose(this.props.handlePanelClose)}
+          handlePaneOpen={this._handlePaneOpen}
+          handlePanelClose={this._handlePaneClose}
         />;
       }
       return null;
