@@ -2,8 +2,11 @@ import React from 'react';
 import 'antd/dist/antd.css';
 const giui = {
   GIcon: require('./components/icon'),
-  RichEditor: require('./components/RichEditor')
-}
+  RichEditor: require('./components/RichEditor'),
+  BubbleMenu: require('./components/bubbleMenu'),
+  VerticalTabs: require('./components/verticalTabs')
+};
+
 giui.version = require('./package.json').version;
 
 if (process.env.NODE_ENV !== 'production') {

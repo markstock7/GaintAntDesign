@@ -22,7 +22,6 @@ window.require = function (path) {
   return result;
 };
 
-console.debug(' i am in here');
 window['css-animation'] = require('css-animation');
 window['react-router'] = require('react-router');
 window.Clip = require('./clip');
@@ -31,7 +30,6 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var semver = require('semver');
 window.giui = giui;
-console.debug('giui is', giui);
 window.React = React;
 window.ReactDOM = ReactDOM;
 window['object-assign'] = require('object-assign');

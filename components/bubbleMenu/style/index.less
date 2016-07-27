@@ -1,0 +1,108 @@
+/**
+ * 展开
+ */
+@keyframes paneExpand {
+  from {
+    width: 50px;
+  }
+  to {
+    width: 200px;
+  }
+}
+/**
+ * 折叠
+ */
+@keyframes paneCollapse {
+  from {
+    width: 200px;
+  }
+  to {
+    width: 50px;
+  }
+}
+
+.gui-bubble-menu {
+  width: 50px;
+  margin: 10px;
+  display: block;
+  cursor: pointer;
+  position: relative;
+  border-radius: 50px;
+  background: #3a9eff;
+  .circle();
+
+  /**
+   * 打开状态
+   */
+  &.expand {
+    width: 200px;
+    transition: width 2s;
+  }
+  /**
+   * 闭合状态
+   */
+  &.collapse {
+    width: 50px;
+    transition: width 2s;
+  }
+  /**
+   * 点击状态
+   */
+  &.open {
+    width: 100px;
+    background: #7b8999;
+    .gui-bubble-menu-inner {
+      display: block;
+      transition: display 2s;
+    }
+    .gui-bubble-menu-brife .name {
+      display: none;
+    }
+  }
+}
+.gui-bubble-menu-brife {
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+  color: #fff;
+  .icon {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+  }
+  .name {
+    display: inline-block;
+  }
+}
+.gui-bubble-menu-inner {
+  display: none;
+  position: absolute;
+  left: 70px;
+  top: 0;
+  background: #7b8999;
+  min-width: 200px;
+  min-height: 150px;
+}
+
+/**
+ * 圆角遮罩
+ */
+.circle() {
+  .circle {
+    top: 50px;
+    width: 50px;
+    left: -50px;
+    height: 50px;
+    position: absolute;
+    background: #7b8999;
+    .circle-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 0 25px 0 0;
+      background: #ffffff;
+      opacity: 68;
+    }
+  }
+}
