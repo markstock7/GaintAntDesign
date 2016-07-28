@@ -2,39 +2,49 @@
 
 /**
  * 设计: 大丹
- * 实现: markstock7
+ * 实现: Mark Stock
  *
  */
 import React from 'react';
 import VerticalTabPane from './VerticalTabPane';
-var ReactChildren = React.Children, VerticalTabs;
+var ReactChildren = React.Children,
+    PropTypes = React.PropTypes,
+    VerticalTabs;
 
 VerticalTabs = React.createClass({
   statics: {
     __VerticalTabs__: true
   },
 
+  propTypes: {
+    defaultKey: PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+    width: PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+    onTabClick: PropTypes.func
+  },
+
   getInitialState() {
     /**
      * 默认为关闭状态，鼠标经过后进入hover状态，点击为open状态
      */
-    var state = {
-      selectedKey: this.props.defaultKey,
-      currentContent: null
-    };
-    return state;
+    return { selectedKey: this.props.defaultKey };
   },
 
-  _handleClick(e) {
-    e.stopPropagation();
-  },
-
-  _handleMouseEnter(e) {
-    e.stopPropagation();
-  },
-
-  _handleMouseLeave(e) {
-    e.stopPropagation();
+  componentWillMount() {
+    this.handlePaneClick = (() => {
+      if (this.props.onTabClick) {
+        return (key) => {
+          this._handlePaneClick(key);
+          this.props.onTabClick(key);
+        }
+      }
+      return this._handlePaneClick;
+    })();
   },
 
   _handlePaneClick(key) {
@@ -48,7 +58,14 @@ VerticalTabs = React.createClass({
     return ReactChildren.map(this.props.children, (child) => {
       if (child.type.__VerticalTabsPane__) {
         if (!child.props.handleClick) {
-          return <VerticalTabPane {...child.props} handleClick={this._handlePaneClick} _key={child.key} _index={index++} selectedKey={this.state.selectedKey} />;
+          index = index + 1;
+          return <VerticalTabPane
+            {...child.props}
+            handleClick={this.handlePaneClick}
+            _key={child.key}
+            _index={index}
+            selectedKey={this.state.selectedKey}
+          />;
         }
         return child;
       }
@@ -56,6 +73,9 @@ VerticalTabs = React.createClass({
     });
   },
 
+  /**
+   * 显示当前选中项目的pane的内容
+   */
   _currentPaneContent() {
     return ReactChildren.map(this.props.children, (child) => {
       if (child.key === this.state.selectedKey)

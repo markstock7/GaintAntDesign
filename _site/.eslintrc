@@ -1,35 +1,70 @@
 {
-  "parser": "babel-eslint",
-  "plugins": [
-    "react"
-  ],
+ "extends": "airbnb",
   "parserOptions": {
     "ecmaVersion": 6,
-    "sourceType": "module",
     "ecmaFeatures": {
-      "jsx": true
-    }
+      "jsx": true,
+      experimentalObjectRestSpread: true
+    },
+    "sourceType": "module",
   },
   "env": {
     "browser": true,
-    "amd": true,
-    "es6": true,
-    "node": true,
     "mocha": true
   },
+  "plugins": ["react"],
+
+  // Rewrite airbnb style
   "rules": {
-    "comma-dangle": 1,
-    "quotes": [ 1, "single" ],
-    "no-undef": 1,
-    "global-strict": 0,
-    "no-extra-semi": 1,
-    "no-underscore-dangle": 0,
-    "no-console": 1,
-    "no-unused-vars": 1,
-    "no-trailing-spaces": [1, { "skipBlankLines": true }],
-    "no-unreachable": 1,
-    "no-alert": 0,
-    "react/jsx-uses-react": 1,
-    "react/jsx-uses-vars": 1
-  }
+    // 允许多余的行内空格
+    "no-multi-spaces": 0,
+
+    // 每行最大字符长度扩展到200
+    "max-len": ["error", 600, 4, {"ignoreUrls": true}],
+
+    "jsx-quotes": ["error", "prefer-single"],
+
+    // 允许var 声明变量
+    "no-var": 0,
+
+    // 未初始化变量只能用一个var进行声明，
+    "one-var": 0,
+
+    "one-var-declaration-per-line": 0,
+
+    // 允许变量覆盖
+    "no-shadow": 0,
+
+    "no-param-reassign": 0,
+
+    "arrow-body-style": 0,
+
+    prefer-const: 0,
+
+    comma-dangle: ["error", "never"],
+
+    no-underscore-dangle: 0,
+
+    "react/sort-comp" : 0,
+    // 暂时运行大写的非构造函数
+    new-cap: 0,
+
+    "react/prop-types": 0,
+
+    // 不允许存在 console, 关闭
+    "no-console": 0,
+
+    "react/jsx-no-bind": 0,
+
+    "react/prefer-stateless-function": 0,
+
+    "prefer-template": 0
+  },
+  // 忽略对全局 variable 的检查 [ Promise ]
+  "globals": {
+    "Promise": true
+  },
+
+  "no-nested-ternary": 0
 }
+

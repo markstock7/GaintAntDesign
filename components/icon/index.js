@@ -8,7 +8,7 @@ import { icons } from '../../config/icons';
 // 此处的键值和 icons目录中的文件名 一一对应
 const iconsMap = {};
 
-export default class Icon extends Component{
+export default class Icon extends Component {
   render() {
     let { size = 1, type, className = '', ...other } = this.props;
     if (icons.indexOf(type) === -1) {

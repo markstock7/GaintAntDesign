@@ -27,29 +27,32 @@ BubbleMenu = React.createClass({
   },
 
   propTypes: {
-    selectedKey: PropTypes.string,
+    defaultKey: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
     onItemOpen: PropTypes.func,
     onItemClose: PropTypes.func,
-    _close_items: PropTypes.boolean
+    _close_items: PropTypes.bool
   },
 
   getInitialState() {
     var state = {
       selectedKey: this.props.defaultKey,
-      enableHover: false,
+      enableHover: false
     };
     return state;
   },
 
   componentWillMount() {
-      this._handlePaneClose = this._wrap_handlePaneClose(this.props.onItemClose);
-      this._handlePaneOpen = this._wrap_handlePaneOpen(this.props.onItemOpen);
+      this.handlePaneClose = this._wrap_handlePaneClose(this.props.onItemClose);
+      this.handlePaneOpen = this._wrap_handlePaneOpen(this.props.onItemOpen);
   },
 
   componentWillReceiveProps(nextProps) {
-      if (nextProps._close_items) {
-          this._handlePaneClose();
-      }
+    if (nextProps._close_items) {
+      this.handlePaneClose();
+    }
   },
 
   /**
@@ -91,7 +94,7 @@ BubbleMenu = React.createClass({
     this.setState({
       selectedKey: null,
       enableHover: true
-    })
+    });
   },
 
   /**
@@ -108,15 +111,15 @@ BubbleMenu = React.createClass({
     var index = 1;
     return ReactChildren.map(this.props.children, (child) => {
       if (child.type.__BubbleMenuItem__) {
-        index++:
+        index++;
         return <BubbleMenuItem
           {...child.props}
           _key={child.key}
           _index={index}
           enableHover={this.state.enableHover}
           selectedKey={this.state.selectedKey}
-          handlePaneOpen={this._handlePaneOpen}
-          handlePanelClose={this._handlePaneClose}
+          handlePaneOpen={this.handlePaneOpen}
+          handlePaneClose={this.handlePaneClose}
         />;
       }
       return null;

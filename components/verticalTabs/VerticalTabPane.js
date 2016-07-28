@@ -7,19 +7,32 @@
  */
 import React from 'react';
 
+var PropTypes = React.PropTypes,
+    VerticalTabsPane;
+
 var VerticalTabsPane = React.createClass({
   statics: {
     __VerticalTabsPane__: true
+  },
+
+  propTypes: {
+    _key: PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number
+    ]),
+    label: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element
+    ])
   },
 
   getInitialState() {
     /**
      * 默认为关闭状态，鼠标经过后进入hover状态，点击为open状态
      */
-    var state = {
+    return {
       active: this.props.selectedKey === this.props._key
     };
-    return state;
   },
 
   componentWillReceiveProps(nextProps) {

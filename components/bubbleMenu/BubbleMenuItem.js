@@ -2,14 +2,13 @@
 
 /**
  * 设计: 大丹
- * 实现: markstock7
+ * 实现: Mark Stock
  *
  */
 import React from 'react';
 import Icon from '../icon';
 
-var ReactChildren = React.Children,
-    PropTypes = React.PropTypes,
+var PropTypes = React.PropTypes,
     BubbleMenuItem;
 
 BubbleMenuItem = React.createClass({
@@ -21,25 +20,27 @@ BubbleMenuItem = React.createClass({
    * 默认为关闭状态，鼠标经过后进入hover状态，点击为open状态
    */
   getInitialState() {
-    var state = {
-      status: 'expand'
-    };
-    return state;
+    return { status: 'expand' };
   },
 
   propTypes: {
-    iconType: PropTypes.string,
-    _key; PropTypes.string,
     name: PropTypes.string,
-    selectedKey: PropTypes.string,
-    enableHover: PropTypes.boolean,
-    _index: PropTypes.int
+    iconType: React.PropTypes.node,
+    // PropTypes.oneOfType([
+    //   PropTypes.element,
+    //   PropTypes.string
+    // ]),
+    enableHover: PropTypes.bool,
+    selectedKey: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number
+    ])
   },
-  
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.selectedKey !== this.props._key) {
       this.setState({
-        status: 'close'
+        status: 'collapse'
       });
     }
   },
@@ -49,8 +50,8 @@ BubbleMenuItem = React.createClass({
     this.setState({
       status: 'open'
     }, () => {
-      if (this.props.handleClick) {
-        this.props.handleClick(this.props._key);
+      if (this.props.handlePaneOpen) {
+        this.props.handlePaneOpen(this.props._key);
       }
     });
   },
@@ -72,22 +73,24 @@ BubbleMenuItem = React.createClass({
   },
 
   render() {
+
     return (
       <div role='tab'
-        className={`gui-bubble-menu large ${this.state.status}`}
+        className={`gui-bubble-menu ${this.state.status}`}
         style={{zIndex: `${this.props_index}`}}
         onClick={this._handleClick}
         onMouseEnter={this._handleMouseEnter}
-        onMouseLeave={this._handleMouseLeave}>
+        onMouseLeave={this._handleMouseLeave} >
         <div className='gui-bubble-menu-brife'>
-          <div className='icon'><Icon type={this.props.iconType} /></div>
+          <div className='icon'>
+            {this.props.iconType}
+          </div>
           <div className='name'>{this.props.name}</div>
         </div>
         <div className='gui-bubble-menu-inner clearfix'>
           <div className='circle'>
             <div className='circle-inner'></div>
           </div>
-          <button onClick={this.props.handlePanelClose}>close</button>
           {this.props.children}
         </div>
       </div>
