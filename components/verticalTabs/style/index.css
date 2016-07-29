@@ -1,0 +1,36 @@
+.gui-vertical-tab-wrap {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  clear: both;
+  border: 1px solid #7b8999;
+  background: #fff;
+}
+.gui-vertical-tab-panes {
+  display: block;
+  float: left;
+  height: 100%;
+  padding: 10px 20px;
+  text-align: center;
+  width: 120px;
+  background: #7b8999;
+}
+.gui-vertical-tab-panes .gui-vertical-tab {
+  margin: 10px 0;
+  color: #fff;
+}
+.gui-vertical-tab-panes .gui-vertical-tab.active {
+  background: #51606b;
+  border-radius: 15px;
+}
+.gui-vertical-tab-container {
+  height: 100%;
+  background-color: #7b8999;
+}
+.gui-vertical-tab-content {
+  margin-left: 120px;
+  background-color: #fff;
+}
+.gui-vertical-tab {
+  cursor: pointer;
+}

@@ -1,0 +1,12 @@
+/**
+ * 文本编辑基础样式
+ */
+.DraftEditor-root .alignment-left .public-DraftStyleDefault-block {
+  text-align: left;
+}
+.DraftEditor-root .alignment-center .public-DraftStyleDefault-block {
+  text-align: center;
+}
+.DraftEditor-root .alignment-right .public-DraftStyleDefault-block {
+  text-align: right;
+}

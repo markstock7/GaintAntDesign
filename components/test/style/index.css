@@ -1,0 +1,18 @@
+.dashboard-bubble-menu-pane .pane-header {
+  font-size: 14px;
+  padding: 6px;
+  font-weight: bold;
+  border-bottom: 1px solid #eee;
+}
+.dashboard-bubble-menu-pane .pane-header .tool {
+  display: inline-block;
+  text-align: right;
+  float: right;
+}
+.dashboard-bubble-menu-pane .pane-body {
+  padding: 10px;
+}
+.dashboard-bubble-menu-pane .pane-footer {
+  text-align: right;
+  padding: 10px;
+}
