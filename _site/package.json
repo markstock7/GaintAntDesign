@@ -1,7 +1,7 @@
 {
   "name": "growing-front-lib",
   "version": "1.0.0",
-  "description": "GrowingIo 前端库",
+  "description": "MarkStock 前端库",
   "author": "Mark Stock",
   "license": "MIT",
   "main": "index.js",
@@ -38,7 +38,8 @@
     "svg-sprite-loader": "^0.0.25",
     "warning": "^3.0.0",
     "webpack": "^1.13.1",
-    "webpack-dev-middleware": "^1.6.1"
+    "webpack-dev-middleware": "^1.6.1",
+    "gulp": "^3.9.1"
   },
   "dependencies": {
     "antd": "^1.6.4",
@@ -75,7 +76,8 @@
     "svg-loader": "^0.0.2",
     "svg-sprite": "^1.3.3",
     "url": "^0.11.0",
-    "url-loader": "^0.5.7"
+    "url-loader": "^0.5.7",
+    "eslint-config-airbnb": "^9.0.1"
   },
   "pre-commit": [
     "lint"

@@ -1,5 +1,5 @@
 var path = require('path');
-var package = require('./package');
+var pkg = require('./package.json');
 var webpack = require('webpack');
 var ProgressPlugin = require('webpack/lib/ProgressPlugin');
 var inspect = require('util').inspect;
@@ -11,7 +11,7 @@ var webpackCompiler = webpack(webpackConfig);
 var handler;
 
 // 统计加载进度
-webpackCompiler.apply(new ProgressPlugin(function(percentage, msg) {
+webpackCompiler.apply(new ProgressPlugin((percentage, msg) => {
   var stream = process.stderr;
   if (stream.isTTY && percentage < 0.71) {
     stream.cursorTo(0);
@@ -24,9 +24,9 @@ webpackCompiler.apply(new ProgressPlugin(function(percentage, msg) {
 
 // settings for nico
 exports.site = {
-  name: package.title,
-  description: package.description,
-  repo: package.repository.url
+  name: pkg.title,
+  description: pkg.description,
+  repo: pkg.repository.url
 };
 
 // PRODUCTION
@@ -36,15 +36,15 @@ if (process.env.NODE_ENV === 'PRODUCTION') {
   exports.minimized = '';
 }
 
-exports.package = package;
+exports.package = pkg;
 exports.theme = 'site';
 exports.source = process.cwd();
 exports.output = path.join(process.cwd(), '_site');
 exports.permalink = '{{directory}}/{{filename}}';
-exports.giuiCssUrl = '../dist/' + package.name + '-' + package.version + exports.minimized + '.css';
-exports.giuiJsUrl = '../dist/' + package.name + '-' + package.version + exports.minimized + '.js';
+exports.giuiCssUrl = '../dist/' + pkg.name + '-' + pkg.version + exports.minimized + '.css';
+exports.giuiJsUrl = '../dist/' + pkg.name + '-' + pkg.version + exports.minimized + '.js';
 
-exports.ignorefilter = function(filepath, subdir) {
+exports.ignorefilter = (filepath, subdir) => {
   var extname = path.extname(filepath);
   if (extname === '.tmp' || extname === '.bak') {
     return false;
@@ -57,41 +57,42 @@ exports.ignorefilter = function(filepath, subdir) {
   }
   return true;
 };
-exports.middlewares = [
-  {
-    name: 'upload',
-    filter: /upload\.do?$/,
-    handle: function(req, res, next) {
-      if (req.method === 'POST') {
-        var busboy = new Busboy({headers: req.headers});
-        busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-          console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
-          file.on('data', function(data) {
-            console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
-          });
-          file.on('end', function() {
-            console.log('File [' + fieldname + '] Finished');
-          });
+exports.middlewares = [{
+  name: 'upload',
+  filter: /upload\.do?$/,
+  handle: (req, res) => {
+    var busboy;
+    if (req.method === 'POST') {
+      busboy = new Busboy({
+        headers: req.headers
+      });
+      busboy.on('file', (fieldname, file, filename, encoding, mimetype) => {
+        console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
+        file.on('data', (data) => {
+          console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
         });
-        busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated) {
-          console.log('Field [' + fieldname + ']: value: ' + inspect(val));
+        file.on('end', () => {
+          console.log('File [' + fieldname + '] Finished');
         });
-        busboy.on('finish', function() {
-          console.log('Done parsing form!');
-          //res.writeHead(303, { Connection: 'close', Location: '/' });
-          res.end(JSON.stringify({
-            'status': 'success',
-            'url': '/example.file'
-          }));
-        });
-        req.pipe(busboy);
-      }
+      });
+      busboy.on('field', (fieldname, val) => {
+        console.log('Field [' + fieldname + ']: value: ' + inspect(val));
+      });
+      busboy.on('finish', () => {
+        console.log('Done parsing form!');
+        // res.writeHead(303, { Connection: 'close', Location: '/' });
+        res.end(JSON.stringify({
+          status: 'success',
+          url: '/example.file'
+        }));
+      });
+      req.pipe(busboy);
     }
-  },
-  {
+  }
+}, {
   name: 'webpackDevMiddleware',
   filter: /\.(js|css)(\.map)?$/,
-  handle: function(req, res, next) {
+  handle: (req, res, next) => {
     handler = handler || webpackMiddleware(webpackCompiler, {
       publicPath: '/dist/',
       lazy: false,
@@ -103,7 +104,9 @@ exports.middlewares = [
     });
     try {
       return handler(req, res, next);
-    } catch(e) {}
+    } catch (e) {
+      return null;
+    }
   }
 }];
 
@@ -113,6 +116,6 @@ exports.writers = [
   'nico-jsx.FileWriter'
 ];
 
-process.on('uncaughtException', function(err) {
+process.on('uncaughtException', (err) => {
   console.log(err);
 });

@@ -11,17 +11,17 @@
   <div class="banner-box">
     <div id="bannerAnim"></div>
     <div class="banner-entry fn-hide">
-      <div class="entry-title">GrowingIo</div>
-      <div class="entry-title">UI</div>
+      <div class="entry-title">Markstock UI</div>
       <div class="entry-slogan">
         {{ config.site.description }}
       </div>
-      <a class="entry-link" href="{{static_url('../spec/introduce')}}">
+      <!-- 当点击探索按钮时，转换为搜索框，提供component和libaray fn的搜索 -->
+      <a class="entry-link" id='#main-search-btn' href="javascript:void(0)">
         <i class="anticon anticon-smile"></i>
         开始探索
       </a>
     </div>
-    <div class="banner-img fn-alpha-out"></div>
+    <!-- <div class="banner-img fn-alpha-out"></div> -->
   </div>
 </div>
 <script src="{{static_url('homeLoad.js')}}"></script>

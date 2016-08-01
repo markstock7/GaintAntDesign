@@ -1,4 +1,12 @@
-'use strict';
+/**
+ * 主要包含如下功能
+ * 编译项目
+ * 自动打tag
+ * 自动部署
+ * 自动发布
+ *
+ */
+
 
 const merge2 = require('merge2');
 const execSync = require('child_process').execSync;
@@ -11,7 +19,6 @@ const selfPackage = require('../package.json');
 const chalk = require('chalk');
 const path = require('path');
 const eslint = require('gulp-eslint');
-
 const gulp = require('gulp');
 
 gulp.task('clean', () => {
@@ -41,3 +48,17 @@ gulp.task('compile', () => {
       this.push(file.clone());
     }));
 });
+
+
+function compileComponent() {
+  execSync('rm -rf lib/com');
+  const less = gulp.src(['../src/'])
+}
+
+function compileLibrary() {
+
+}
+
+function compileTheme() {
+
+}

@@ -1,13 +1,10 @@
 #!/usr/bin/env node
-
-'use strict';
-
 require('colorful').colorful();
 
 const program = require('commander');
 const packageInfo = require('../package.json');
 const gulp = require('gulp');
-require('../gulpfile');
+require('./gulpfile');
 
 program
   .version(packageInfo.version)
@@ -24,9 +21,8 @@ if (proc) {
 
 const task = program.args[0];
 
-switch (task) {
-  case 'run':
-    return gulp.start(task);
-  default:
-    program.help();
+if (task === 'run') {
+  gulp.start(task);
+} else {
+  program.help();
 }

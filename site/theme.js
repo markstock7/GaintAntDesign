@@ -1,23 +1,29 @@
 var _ = require('lodash');
 
-module.exports = function(nico) {
+module.exports = function theme(nico) {
   var exports = {};
   var Categories = {};
   var Posts = [];
 
+  /**
+   *
+   * @param pages {Object}
+   */
   function getAllPosts(pages) {
+    console.log(1);
     if (Posts && Posts.length > 0) {
       return Posts;
     }
-    Object.keys(pages).map(function(key) {
+    Object.keys(pages).forEach((key) => {
       Posts.push(pages[key]);
     });
     return Posts;
   }
 
-  exports.reader = function(post) {
+  // 设置模版的类型
+  exports.reader = function reader(post) {
     var filepath = post.meta.filepath.toLowerCase();
-    if (filepath.indexOf('components') === 0) {
+    if (filepath.indexOf('src/components') >= 0) {
       post.template = post.meta.template = 'component';
     } else {
       post.template = post.meta.template = (post.meta.template || 'page');
@@ -33,96 +39,109 @@ module.exports = function(nico) {
   };
 
   exports.filters = {
-    find_category: function(posts, cats) {
+    find_category: function findCategory(posts, cats) {
+      var ret = [];
+      console.log(cats);
       if (typeof cats === 'string') {
         cats = [cats];
       }
-      var ret = [];
-      getAllPosts(posts).forEach(function(post) {
+      getAllPosts(posts).forEach((post) => {
         if (cats.indexOf(post.meta.category) >= 0) {
           ret.push(post);
         }
       });
-      ret = ret.sort(function(a, b) {
+      ret = ret.sort((a, b) => {
         a = a.meta.order || 10;
         b = b.meta.order || 10;
         return parseInt(a, 10) - parseInt(b, 10);
       });
       return ret;
     },
-    get_categories: function(posts, post) {
-      var rootDirectory = post.directory.split('/')[0];
+
+    // 将所有的post进行分类和排序
+    get_categories: function getCategories(posts, post) {
+      var directories, cacheKey, categories, rootDirectory, subDirectory;
+      rootDirectory = post.directory.split('/')[0];
+      subDirectory = post.directory.split('/')[1];
       if (!rootDirectory && post.filename.indexOf('CHANGELOG') < 0) {
-        return;
+        return [];
       }
-      var directories = [rootDirectory];
+      directories = [rootDirectory];
       // docs 和 components 放在同一页
-      if (rootDirectory === 'docs' || rootDirectory === 'components' ||
+      if (rootDirectory === 'docs' ||
+         (rootDirectory === 'src' && subDirectory === 'components') ||
+         (rootDirectory === 'src' && subDirectory === 'library') ||
           post.filename.indexOf('CHANGELOG') >= 0) {
-        directories = ['docs', 'components'];
+        directories = ['docs', 'components', 'library'];
       }
-      var cacheKey = directories.join('-');
-      var categories;
+      cacheKey = directories.join('-');
       if (Categories[cacheKey]) {
         categories = Categories[cacheKey];
       } else {
         categories = {};
-        _.uniq(getAllPosts(posts).forEach(function(item) {
+        _.uniq(getAllPosts(posts).forEach((item) => {
           var itemDirectory = item.directory.split('/')[0];
+          var itemSubDirectory = item.directory.split('/')[1];
           var cat = item.meta.category;
           if (!cat) {
             return;
           }
           if (directories.indexOf(itemDirectory) >= 0 ||
+              directories.indexOf(itemSubDirectory) >= 0 ||
               item.filename.indexOf('CHANGELOG') >= 0) {
             item.filename = item.filename.toLowerCase();
             categories[cat] = categories[cat] || [];
             categories[cat].push(item);
           }
         }));
-        categories = Object.keys(categories).map(function(cat) {
+
+        // 类别和所属文章的映射
+        categories = Object.keys(categories).map((cat) => {
           return {
             name: cat,
             pages: categories[cat]
           };
         });
         // React 的分类排序
-        categories = categories.sort(function(a, b) {
+        categories = categories.sort((a, b) => {
           var cats = ['React', 'Components'];
           a = cats.indexOf(a.name);
           b = cats.indexOf(b.name);
           return a - b;
         });
+
         // 设计的分类排序
-        categories = categories.sort(function(a, b) {
+        categories = categories.sort((a, b) => {
           var cats = ['风格', '动画', '模式', '资源'];
           a = cats.indexOf(a.name);
           b = cats.indexOf(b.name);
           return a - b;
         });
       }
+
       Categories[cacheKey] = categories;
+
       return categories;
     },
-    find_demo_in_component: function(pages, directory) {
-      var ret = [];
-      getAllPosts(pages).forEach(function(post) {
+
+    find_demo_in_component: function findDemoInComponent(pages, directory) {
+      var ret = [], hasOnly;
+      getAllPosts(pages).forEach((post) => {
         if (post.filepath.indexOf(directory + '/demo/') === 0 && !post.meta.hidden) {
           ret.push(post);
         }
       });
-      var hasOnly;
-      ret.forEach(function(post) {
+      ret.forEach((post) => {
         if (post.meta.only) {
           hasOnly = true;
         }
       });
       if (hasOnly) {
-        ret = ret.filter(function(post) {
+        ret = ret.filter((post) => {
           return post.meta.only;
         });
       }
-      ret = ret.sort(function(a, b) {
+      ret = ret.sort((a, b) => {
         if (/index$/i.test(a.filename)) {
           a.meta.order = 1;
         }
@@ -136,43 +155,49 @@ module.exports = function(nico) {
       return ret;
     },
     // For Debug
-    console: function(target) {
+    console: function console(target) {
       console.log(target);
     },
-    parsePost: function(filepath) {
+
+    parsePost: function parsePost(filepath) {
       return nico.sdk.post.read(filepath);
     },
-    odd: function(items) {
-      return items.filter(function(item, i) {
-        return (i+1)%2 === 1;
+
+    odd: function odd(items) {
+      return items.filter((item, i) => {
+        return (i + 1) % 2 === 1;
       });
     },
-    even: function(items) {
-      return items.filter(function(item, i) {
-        return (i+1)%2 === 0;
+
+    even: function even(items) {
+      return items.filter((item, i) => {
+        return (i + 1) % 2 === 0;
       });
     },
-    rootDirectoryIn: function(directory, rootDirectories) {
+
+    rootDirectoryIn: function rootDirectoryIn(directory, rootDirectories) {
       return rootDirectories.indexOf(directory.split('/')[0]) >= 0;
     },
-    removeCodeBoxIdPrefix: function(id) {
+
+    removeCodeBoxIdPrefix: function removeCodeBoxIdPrefix(id) {
       return id.split('-').slice(2).join('-');
     },
-    splitComponentsByType: function(pages, category) {
+
+    splitComponentsByType: function splitComponentsByType(pages, category) {
+      var tempResult, lastType, result = [];
       if (category !== 'Components') {
-        return pages.sort(function(a, b) {
+        return pages.sort((a, b) => {
           a = a.meta.order || 100;
           b = b.meta.order || 100;
           return parseInt(a, 10) - parseInt(b, 10);
         });
       }
       // 加入组件的类别分隔符
-      var tempResult = _.sortBy(pages, function(p) {
+      tempResult = _.sortBy(pages, (p) => {
         var types = ['基本', '表单', '展示', '导航', '其他'];
         return types.indexOf(p.meta.type || '其他');
       });
-      var lastType, result = [];
-      tempResult.forEach(function(p) {
+      tempResult.forEach((p) => {
         if (p.meta.type !== lastType) {
           result.push({
             name: p.meta.type || '其他',
@@ -184,9 +209,12 @@ module.exports = function(nico) {
       });
       return result;
     },
-    add_anchor: function(content) {
-      for (var i = 1; i <= 6; i++) {
-        var reg = new RegExp('(<h' + i + '\\sid="(.*?)">.*?)(<\/h' + i + '>)', 'g');
+
+    add_anchor: function addAnchor(content) {
+      var i, reg;
+      for (i = 1; i <= 6; i++) {
+        // reg = new RegExp('(<h' + i + '\\sid="(.*?)">.*?)(<\/h' + i + '>)', 'g');
+        reg = new RegExp(`(<h${i}\\sid="(.*?)">.*?)(<\/h${i}>)', 'g`);
         content = content.replace(reg, '$1<a href="#$2" class="anchor">#</a> $3');
       }
       return content;

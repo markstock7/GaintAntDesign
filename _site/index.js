@@ -1,19 +1,28 @@
 import React from 'react';
 import 'antd/dist/antd.css';
+var warning = require('warning');
+var semver = require('semver');
+const reactVersionInDeps = require('./package.json').devDependencies.react;
+
+
+var Icon = require('./src/components/icon');
+var RichEditor = require('./src/components/richEditor');
+var BubbleMenu = require('./src/components/bubbleMenu');
+var VerticalTabs = require('./src/components/verticalTabs');
+var TestComponent = require('./src/components/test/TestComponent');
+
+
 const giui = {
-  GIcon: require('./components/icon'),
-  RichEditor: require('./components/RichEditor'),
-  BubbleMenu: require('./components/bubbleMenu'),
-  VerticalTabs: require('./components/verticalTabs'),
-  TestComponent: require('./components/test/TestComponent')
+  Icon,
+  RichEditor,
+  BubbleMenu,
+  VerticalTabs,
+  TestComponent
 };
 
-giui.version = require('./package.json').version;
 
+giui.version = require('./package.json').version;
 if (process.env.NODE_ENV !== 'production') {
-  const warning = require('warning');
-  const semver = require('semver');
-  const reactVersionInDeps = require('./package.json').devDependencies.react;
   warning(semver.satisfies(React.version, reactVersionInDeps) || semver.gtr(React.version, reactVersionInDeps),
     `antd@${giui.version} need react@${reactVersionInDeps} or higher, which is react@${React.version} now.`);
 }

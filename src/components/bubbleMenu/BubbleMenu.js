@@ -71,7 +71,7 @@ BubbleMenu = React.createClass({
    * 当menuItem被打开的生活调用
    */
   _handlePaneOpen(key) {
-    this.setState({
+      this.setState({
       selectedKey: key,
       enableHover: false
     });

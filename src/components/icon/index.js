@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // 加载ant-design Icon Component
 import { Icon as AntdIcon } from 'antd';
 
-import { icons } from '../../config/icons';
+var icons = [];
 
 // 此处的键值和 icons目录中的文件名 一一对应
 const iconsMap = {};
@@ -21,7 +21,7 @@ export default class Icon extends Component {
     className += ` gi-icon gi-icon-${type} gi-icon-${size}x`;
 
     return (
-      <svg {...other} className={className} dangerouslySetInnerHTML={{__html: '<use xlink:href="' + iconsMap[type] + '"></use>'}}/>
+      <svg {...other} className={className} dangerouslySetInnerHTML={{ __html: '<use xlink:href="' + iconsMap[type] + '"></use>' }} />
     );
   }
 }

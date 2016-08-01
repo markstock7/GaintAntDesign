@@ -1,4 +1,4 @@
-InstantClickChangeFns.push(function() {
+window.InstantClickChangeFns.push(function cb() {
   // fix hash id link
   if (window.location.href.indexOf('#') > 0) {
     setTimeout(function() {
@@ -66,36 +66,36 @@ InstantClickChangeFns.push(function() {
     navStrArr: [],
     init: function() {
       var self = this;
-      self.navBox = $(".nav");
-      self.navBar = self.navBox.find(".bar");
-      self.navList = self.navBox.find("ul li");
-      self.navNum = $(".current").index();
+      self.navBox = $('.nav');
+      self.navBar = self.navBox.find('.bar');
+      self.navList = self.navBox.find('ul li');
+      self.navNum = $('.current').index();
       self.navBarAnim();
       self.navResize(null);
-      $(window).bind("resize", self.navResize);
+      $(window).bind('resize', self.navResize);
       self.navBar.show();
     },
     navResize: function(e) {
       var self = navFunc;
-      self.navBar.css("left", self.navList.width() * self.navNum);
+      self.navBar.css('left', self.navList.width() * self.navNum);
 
-      self.navList.eq(self.navNum).find("a").addClass("hover");
+      self.navList.eq(self.navNum).find('a').addClass('hover');
     },
     navBarAnim: function() {
       var self = this,
         delay;
 
       function startBarAnim(num) {
-        self.navBar.css("left", self.navList.width() * num);
-        self.navList.eq(num).find("a").addClass("hover");
+        self.navBar.css('left', self.navList.width() * num);
+        self.navList.eq(num).find('a').addClass('hover');
       }
-      self.navList.bind("mouseenter", function(e) {
+      self.navList.bind('mouseenter', function(e) {
         clearTimeout(delay);
         var m = e.currentTarget;
-        self.navList.find("a").removeClass("hover");
-        self.navBar.addClass("barAnim").css("left", $(m).width() * $(m).index());
+        self.navList.find('a').removeClass('hover');
+        self.navBar.addClass('barAnim').css('left', $(m).width() * $(m).index());
       });
-      self.navList.bind("mouseleave", function(e) {
+      self.navList.bind('mouseleave', function(e) {
         delay = setTimeout(function() {
           startBarAnim(self.navNum);
         }, 500);
@@ -107,7 +107,7 @@ InstantClickChangeFns.push(function() {
     num: 0,
     init: function() {
       var self = this;
-      self.listBox = $(".aside-container>ul");
+      self.listBox = $('.aside-container>ul');
       if (!self.listBox.length) {
         return;
       }
@@ -118,36 +118,36 @@ InstantClickChangeFns.push(function() {
     getUrlNum: function() {
       var self = this,
         url = location.href,
-        str = "";
-      //console.log(self.listBox.find("a"))
-      for (var i = 0; i < self.listBox.find("a").length; i++) {
-        var m = self.listBox.find("a").eq(i);
-        if (m.attr("href") == "./" || url.indexOf(m.attr("href")) >= 0) {
+        str = '';
+      //console.log(self.listBox.find('a'))
+      for (var i = 0; i < self.listBox.find('a').length; i++) {
+        var m = self.listBox.find('a').eq(i);
+        if (m.attr('href') == './' || url.indexOf(m.attr('href')) >= 0) {
           self.num = m.parent().parent().parent().index();
         }
       }
     },
     addTitleEvent: function() {
       var self = this;
-      var title = self.listBox.find("h4");
-      title.bind("click", function(e) {
+      var title = self.listBox.find('h4');
+      title.bind('click', function(e) {
         var parent = $(this).parent(),
-          list=parent.find("ul");
-        if (parent.attr("open")) {
-          parent.removeAttr("open");
+          list=parent.find('ul');
+        if (parent.attr('open')) {
+          parent.removeAttr('open');
           if (parent.index() == self.num) {
-            $(this).addClass("current");
+            $(this).addClass('current');
           }
-          list.animate({marginTop:-list.height()},400,"easeInOutCirc",function (){
-            list.css({"display":"none"})
+          list.animate({marginTop:-list.height()},400,'easeInOutCirc',function (){
+            list.css({'display':'none'})
           })
         } else {
-          parent.attr("open", true);
+          parent.attr('open', true);
           if (parent.index() == self.num) {
-            $(this).removeClass("current");
+            $(this).removeClass('current');
           }
-          list.css({"display":"block","margin-top":-list.height()});
-          list.animate({marginTop:0},400,"easeInOutCirc")
+          list.css({'display':'block','margin-top':-list.height()});
+          list.animate({marginTop:0},400,'easeInOutCirc')
         }
       });
     }

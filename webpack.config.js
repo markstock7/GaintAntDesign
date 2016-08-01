@@ -1,9 +1,11 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require('path');
-var pkg = require('./package');
 
 var entry = {};
+
+// entry.index = './scripts/importCss.js';
+// entry.domo = './scripts/demo.js';
 entry['index'] = './scripts/importCss.js';
 entry['demo'] = './scripts/demo.js';
 
@@ -23,7 +25,7 @@ module.exports = {
       loader: 'babel',
       query: {
         presets: ['es2015', 'react', 'stage-0'],
-        plugins: ['add-module-exports'],
+        plugins: ['add-module-exports']
       }
     }, {
       test: /\.json$/,
@@ -31,12 +33,12 @@ module.exports = {
     }, {
       test: /\.less$/,
       loader: ExtractTextPlugin.extract(
-        'css?sourceMap&-minimize!' + 'autoprefixer-loader!' + 'less?sourceMap'
+        'css?sourceMap&-minimize!autoprefixer-loader!less?sourceMap'
       )
     }, {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract(
-        'css?sourceMap&-minimize!' + 'autoprefixer-loader'
+        'css?sourceMap&-minimize!autoprefixer-loader'
       )
     }, {
       test: /\.svg$/,
@@ -46,12 +48,18 @@ module.exports = {
       })
     }, {
       test: /\.(png|jpg)$/,
-      loader: "file?name=img-[sha512:hash:base64:7].[ext]"
+      loader: 'file?name=img-[sha512:hash:base64:7].[ext]'
     }]
+    // preLoaders: [{
+    //   test: /\.jsx?$/,
+    //   exclude: [/node_modules/],
+    //   include: path.resolve('.'),
+    //   loaders: ['eslint']
+    // }]
   },
   plugins: [
     new ExtractTextPlugin('[name].css'),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.SourceMapDevToolPlugin(),
+    new webpack.SourceMapDevToolPlugin()
   ]
-}
+};

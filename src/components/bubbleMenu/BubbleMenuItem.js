@@ -26,10 +26,6 @@ BubbleMenuItem = React.createClass({
   propTypes: {
     name: PropTypes.string,
     iconType: React.PropTypes.node,
-    // PropTypes.oneOfType([
-    //   PropTypes.element,
-    //   PropTypes.string
-    // ]),
     enableHover: PropTypes.bool,
     selectedKey: PropTypes.oneOfType([
       PropTypes.string,
