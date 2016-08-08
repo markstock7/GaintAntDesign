@@ -1,108 +1,237 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="description" content="MarkStock 前端库"/>
-    <title> - MarkStock 前端库</title>
-    <link rel="icon" href="http://growingio.com/vassets/images/favicon.png" type="image/x-icon">
-    <link rel="shortcut icon" href="http://growingio.com/vassets/images/favicon.png" type="image/x-icon">
-    
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="description" content="MarkStock 前端库" />
+  <title> - MarkStock 前端库</title>
+  <link rel="icon" href="./static/images/logo.png" type="image/x-icon">
+  <link rel="shortcut icon" href="./static/images/logo.png" type="image/x-icon"> 
 <link href="http://fonts.useso.com/css?family=Raleway:600,500,400,300" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" href="./dist/demo.css">
-    <link rel="stylesheet" href="./static/style.css">
-    <link rel="stylesheet" href="./static/tomorrow.css">
-    <!--[if IE 8]>
-    <script src="https://t.alipayobjects.com/images/rmsweb/T1q8JiXftaXXXXXXXX.js"></script>
-    <![endif]-->
 
-    <script src="./static/lib/core.js"></script>
-    <script src="./static/lib/jquery_1_11_1.min.js"></script>
-    <script>
+  <link rel="stylesheet" href="./dist/demo.css">
+  <link rel="stylesheet" href="./static/style.css">
+  <link rel="stylesheet" href="./static/lib/bootstrap.css">
+  <link rel="stylesheet" href="./static/tomorrow.css">
+
+  <!-- <script src="./static/lib/console-polyfill.js"></script> -->
+  <script src="./static/lib/jquery_1_11_1.min.js"></script>
+  <script src="./static/lib/instantClick.min.js"></script>
+
+
+  <script>
     (function() {
-      window.GIO_COMPONENTS = [];
-
-      window.ANT_COMPONENTS = [];
+      window.ALL_CATEGORY = [];
       window.InstantClickChangeFns = [];
-      ANT_COMPONENTS.push({
-        title: 'BubbleMenu',
-        desc: '气泡目录'
-      });
-      ANT_COMPONENTS.push({
-        title: 'Button',
-        desc: '按钮'
-      });
-      ANT_COMPONENTS.push({
-        title: 'GrSearchableChartList',
-        desc: ''
-      });
-      ANT_COMPONENTS.push({
-        title: 'Icon',
-        desc: '图标'
-      });
-      ANT_COMPONENTS.push({
-        title: 'RichEditor',
-        desc: '富文本框'
-      });
-      ANT_COMPONENTS.push({
-        title: 'TestComponent',
-        desc: '测试'
-      });
-      ANT_COMPONENTS.push({
-        title: 'VerticalTabs',
-        desc: '垂直面板'
-      });
-      var i = location.pathname.split('/').lastIndexOf('ant-design');
-      // if (i > 0) {
-      //   window.rootUrl = location.origin + location.pathname.split('/').slice(0, 2+1).join('/');
-      // } else {
-        window.rootUrl = location.origin;
-      // }
+        ALL_CATEGORY.push({
+          title: '这个文件夹存放growingio svg文件',
+          desc: '',
+          type: '',
+          chinese: '',
+          id: 'icons-readme',
+          category: '',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'null',
+          desc: '',
+          type: '',
+          chinese: '',
+          id: '-readme',
+          category: '',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'null',
+          desc: '',
+          type: '',
+          chinese: '',
+          id: 'src-components-readme',
+          category: '',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'BubbleMenu',
+          desc: '气泡目录',
+          type: '基本',
+          chinese: '气泡目录',
+          id: 'src-components-bubblemenu-index',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'Button',
+          desc: '按钮',
+          type: '基本',
+          chinese: '按钮',
+          id: 'src-components-button-index',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'FrequencyPath',
+          desc: '频繁路径',
+          type: '基本',
+          chinese: '频繁路径',
+          id: 'src-components-frequencypath-index',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'GrSearchableChartList',
+          desc: '',
+          type: '业务组件',
+          chinese: '',
+          id: 'src-components-grsearchablechartlist-index',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'Icon',
+          desc: '图标',
+          type: '基本',
+          chinese: '图标',
+          id: 'src-components-icon-index',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'SecondTopBar',
+          desc: '顶部工具栏 二',
+          type: '布局',
+          chinese: '顶部工具栏 二',
+          id: 'src-components-placeholder-secondtopbar',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'TopBar',
+          desc: '顶部工具栏',
+          type: '布局',
+          chinese: '顶部工具栏',
+          id: 'src-components-placeholder-topbar',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'SideBar',
+          desc: '侧边工具栏',
+          type: '布局',
+          chinese: '侧边工具栏',
+          id: 'src-components-placeholder-index',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'RichEditor',
+          desc: '富文本框',
+          type: '文本编辑与显示',
+          chinese: '富文本框',
+          id: 'src-components-richeditor-index',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'TestComponent',
+          desc: '测试',
+          type: '基本',
+          chinese: '测试',
+          id: 'src-components-test-index',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'Color',
+          desc: '颜色',
+          type: '',
+          chinese: '颜色',
+          id: 'src-components-theme-color',
+          category: 'Theme',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'null',
+          desc: '',
+          type: '',
+          chinese: '',
+          id: 'src-components-theme-colors',
+          category: '',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'Summary',
+          desc: '简介',
+          type: '',
+          chinese: '简介',
+          id: 'src-components-theme-index',
+          category: 'Theme',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'VerticalTabs',
+          desc: '垂直面板',
+          type: '基本',
+          chinese: '垂直面板',
+          id: 'src-components-verticaltabs-index',
+          category: 'Components',
+          directory: 'src/library/docs'
+        });
+        ALL_CATEGORY.push({
+          title: 'debounce',
+          desc: 'abc',
+          type: '基本',
+          chinese: 'abc',
+          id: 'src-library-docs-debounce',
+          category: 'Library',
+          directory: 'src/library/docs'
+        });
     })();
-    </script>
-    <!-- <script src="./static/script.js"></script> -->
-    <script>
-      // window.antdVersion = {
-      //   latest: '1.0.0',
-      //   stable: ''
-      // };
-    </script>
-    <script src="./dist/demo.js"></script>
-    <!-- <script src="https://t.alipayobjects.com/images/T1DrxhXe0mXXXXXXXX.js"></script> -->
-    
-  </head>
-  <body class="index-page">
-    <header id="header" class="clearfix">
-      <a class="logo" href="./">
-        <img width="60" src="http://growingio.com/vassets/images/favicon.png">
-        
-      </a>
-      <div class="search">
-        <div id="autoComplete"></div>
+  </script>
+  <!-- <script src="./static/script.js"></script> -->
+  <script src="./dist/demo.js"></script>
+  
+</head>
+
+<body class="index-page">
+  <header>
+    <nav class="navbar navbar-top-bar" role="navigation">
+      <div class='navbar-header'>
+        <button type='button' class='navbar-toggle' data-toggle='collapse' data-target="#top-bar-navbar-collapse">
+          <span class="sr-only">切换导航</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class='navbar-brand' href='./'>
+          <img width="60" src="./static/images/logo.png"> 
+        </a>
       </div>
-      <nav class="nav">
-        <span class="bar"></span>
-        <ul>
-          <li class="">
-            <a href="./" data-no-instant>首页</a>
+      <div class='collapse navbar-collapse' id='top-bar-navbar-collapse'>
+        <ul class="nav navbar-nav pull-right">
+          <li class='pull-left search-box'>
+            <input id='search-box' type="search" class="form-control" placeholder="搜索组件、样式、函数...">
           </li>
-          <li class="">
+          <li class="pull-right">
             <a href="./spec/introduce">设计</a>
           </li>
-          <li>
-            <a target="_blank" href="https://github.com/markstock7/GaintAntDesign">Github</a>
+          <li class="pull-right">
+            <div class='line-bar'></div>
+            <a href="./" data-no-instant>首页</a>
           </li>
         </ul>
-      </nav>
-      <div class="nav-phone-icon"></div>
-    </header>
-    <div class="main-wrapper">
-       
+      </div>
+    </nav>
+  </header>
+
+
+  <div class="main-wrapper">
+     
 <div class="main-box" id="main">
   <div class="banner-box">
     <div id="bannerAnim"></div>
@@ -133,7 +262,7 @@
 }
 </style>
 
-    </div><footer id="footer">
+  </div><footer id="footer">
   <ul>
     <!-- <li>
       <h2>GitHub</h2>
@@ -157,14 +286,15 @@
     </li>
   </ul>
 </footer>
-    <!-- <script src="https://t.alipayobjects.com/images/rmsweb/T1AmXhXg0kXXXXXXXX.js" data-no-instant></script> -->
-    <script data-no-instant>
-      InstantClick.on('change', function() {
-        InstantClickChangeFns.forEach(function(fn) {
-          fn();
-        });
+  <script data-no-instant>
+    InstantClick.on('change', function() {
+      InstantClickChangeFns.forEach(function(fn) {
+        fn();
       });
-      InstantClick.init();
-    </script>
-  </body>
+    });
+    InstantClick.init();
+  </script>
+  <!-- <script src='./static/main.js'></script> -->
+</body>
+
 </html>

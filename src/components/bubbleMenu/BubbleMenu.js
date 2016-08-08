@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * 设计: 大丹
  * 实现: markstock7
@@ -18,8 +16,8 @@ import React from 'react';
 import BubbleMenuItem from './BubbleMenuItem';
 
 var ReactChildren = React.Children,
-    PropTypes = React.PropTypes,
-    BubbleMenu;
+  PropTypes = React.PropTypes,
+  BubbleMenu;
 
 BubbleMenu = React.createClass({
   statics: {

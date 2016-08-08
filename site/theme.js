@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-module.exports = function theme(nico) {
+module.exports = function _main(nico) {
   var exports = {};
   var Categories = {};
   var Posts = [];
@@ -10,7 +10,6 @@ module.exports = function theme(nico) {
    * @param pages {Object}
    */
   function getAllPosts(pages) {
-    console.log(1);
     if (Posts && Posts.length > 0) {
       return Posts;
     }
@@ -21,7 +20,7 @@ module.exports = function theme(nico) {
   }
 
   // 设置模版的类型
-  exports.reader = function reader(post) {
+  exports.reader = function _reader(post) {
     var filepath = post.meta.filepath.toLowerCase();
     if (filepath.indexOf('src/components') >= 0) {
       post.template = post.meta.template = 'component';
@@ -41,7 +40,6 @@ module.exports = function theme(nico) {
   exports.filters = {
     find_category: function findCategory(posts, cats) {
       var ret = [];
-      console.log(cats);
       if (typeof cats === 'string') {
         cats = [cats];
       }

@@ -5,7 +5,7 @@ window.InstantClickChangeFns.push(function cb() {
       window.location.href = window.location.href;
     }, 0);
   }
-
+  
   $('.component-demos .icon-all').on('click', function() {
     if ($(this).hasClass('expand')) {
       $(this).removeClass('expand');
@@ -49,16 +49,16 @@ window.InstantClickChangeFns.push(function cb() {
   });
 
   $.easing['jswing'] = $.easing['swing'];
-  $.extend($.easing,{
-    easeInCirc: function (x, t, b, c, d) {
-      return -c * (Math.sqrt(1 - (t/=d)*t) - 1) + b;
+  $.extend($.easing, {
+    easeInCirc: function(x, t, b, c, d) {
+      return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
     },
-    easeOutCirc: function (x, t, b, c, d) {
-      return c * Math.sqrt(1 - (t=t/d-1)*t) + b;
+    easeOutCirc: function(x, t, b, c, d) {
+      return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
     },
-    easeInOutCirc: function (x, t, b, c, d) {
-      if ((t/=d/2) < 1) return -c/2 * (Math.sqrt(1 - t*t) - 1) + b;
-      return c/2 * (Math.sqrt(1 - (t-=2)*t) + 1) + b;
+    easeInOutCirc: function(x, t, b, c, d) {
+      if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+      return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
     }
   });
 
@@ -132,22 +132,31 @@ window.InstantClickChangeFns.push(function cb() {
       var title = self.listBox.find('h4');
       title.bind('click', function(e) {
         var parent = $(this).parent(),
-          list=parent.find('ul');
+          list = parent.find('ul');
         if (parent.attr('open')) {
           parent.removeAttr('open');
           if (parent.index() == self.num) {
             $(this).addClass('current');
           }
-          list.animate({marginTop:-list.height()},400,'easeInOutCirc',function (){
-            list.css({'display':'none'})
+          list.animate({
+            marginTop: -list.height()
+          }, 400, 'easeInOutCirc', function() {
+            list.css({
+              'display': 'none'
+            })
           })
         } else {
           parent.attr('open', true);
           if (parent.index() == self.num) {
             $(this).removeClass('current');
           }
-          list.css({'display':'block','margin-top':-list.height()});
-          list.animate({marginTop:0},400,'easeInOutCirc')
+          list.css({
+            'display': 'block',
+            'margin-top': -list.height()
+          });
+          list.animate({
+            marginTop: 0
+          }, 400, 'easeInOutCirc')
         }
       });
     }

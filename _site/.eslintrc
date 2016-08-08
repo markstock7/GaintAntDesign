@@ -60,13 +60,18 @@
 
     "react/prefer-stateless-function": 0,
 
-    "prefer-template": 0
+    "prefer-template": 0,
+
+    "react/prefer-es6-class": ["error", "never"],
+
+    "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
+
+    # "func-names": ["warn", "never"],
+
+    "no-nested-ternary": 0
   },
   // 忽略对全局 variable 的检查 [ Promise ]
   "globals": {
     "Promise": true
-  },
-  prefer-arrow-callback: ["error", { "allowNamedFunctions": true }],
-  func-names: ["error", "never"],
-  "no-nested-ternary": 0
+  }
 }

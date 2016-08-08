@@ -1,0 +1,62 @@
+@gr-component-frequency-path-prefix-cls: gr_c-freq_path;
+.@{gr-component-frequency-path-prefix-cls}-container {
+  border-bottom: 1px solid #e9e9e9;
+
+  @import './nodeIcon';
+
+  // 单个频繁路径样式
+  .path-view-c {
+    position: relative;
+    padding-right: 100px;
+    padding-left: 300px;
+    @import './frequencyPath';
+    @import './frequencyPathNode';
+    @import './nodeLinker';
+  }
+
+  // 频繁路径编辑窗口
+  .path-edit-c {
+    display: none;
+    background: #c8d7e1;
+    padding: 40px;
+    &.active {
+      display: block;
+    }
+    .header-panel {
+      height: 100px;
+      background: #f1f2f7;
+      margin-bottom: 20px;
+    }
+    .footer-panel {
+      text-align: center;
+      .hint {
+        font-size: 14px;
+        color: #4b5564;
+        letter-spacing: 0px;
+      }
+      button {
+        width: 180px;
+        height: 50px;
+        font-size: 18px;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+/**
+ * event信息框
+ *
+ */
+.event-info-box {
+  @import './eventInfo.less';
+  width: 340px;
+}
+
+@gr-component-vertical-frequency-path-prefix-cls: gr_c-v-freq_path;
+.@{gr-component-vertical-frequency-path-prefix-cls}-container {
+  background: #f1f2f7;
+  border-radius: 3px;
+  padding: 30px;
+  @import './verticalFrequencyPathNode';
+}
