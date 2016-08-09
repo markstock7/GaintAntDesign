@@ -4,7 +4,6 @@ GrowingIo 组件分为两类，一类为基础组件，一类为业务组件
 需要解决的问题
 * 版本发布的问题，和主项目的协同问题
 * 拆分力度的问题
-*
 
 目前目录结构
 /src
@@ -29,3 +28,14 @@ GrowingIo 组件分为两类，一类为基础组件，一类为业务组件
     /mixins   定义一些可复用的函数
     /themes   存放一些与主题有关的变量， 关于theme的制作，可以参考bootstrap
     /index.less
+
+
+命名规范
+_g- 开头的为全局css
+_c- 开头的为component
+gr_f- 开头的feature container
+
+-l 结尾的为list
+
+
+container 负责数据的获取，分发，于服务器进行 通信

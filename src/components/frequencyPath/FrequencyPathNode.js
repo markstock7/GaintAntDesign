@@ -2,6 +2,7 @@
  * 每个频繁路径中的一个节点
  *
  * FrequencyPath Props
+ *
  * node {Object} 节点的信息
  * index {Int} 编号
  * pathIndex {Int} path的index
@@ -33,8 +34,11 @@ const FrequencyPathNode = React.createClass({
     };
   },
 
+  /**
+   * 当当前高亮节点信息变了后，更新node状态
+   */
   componentWillReceiveProps(nextProps) {
-    var active = nextProps.highlightingNode.node === nextProps.index && nextProps.highlightingNode.path === nextProps.pathIndex;
+    var active = nextProps.highlightingNode.node === nextProps.index && nextProps.highlightingNode.path === nextProps.pathIndex && nextProps.highlightingNode.pos === 0;
     if (active !== this.state.active) {
       this.setState({ active });
     }
@@ -51,7 +55,7 @@ const FrequencyPathNode = React.createClass({
   /**
    * 生成节点之间的链接
    */
-  _generateNode() {
+  _generateNodeLinker() {
     if (this.props.index === 0) return null;
     return (
       <div className='node-linker'>
@@ -112,23 +116,19 @@ const FrequencyPathNode = React.createClass({
 
   _generateTooltipHeader() {
     return (
-      <div className='header'>步骤详情<Icon type='cross' className='icon' onClick={() => this._changeHighlightingNode(-1)} /></div>
+      <div className='header'>步骤详情<Icon type='cross' className='icon' onClick={() => this.props.changeHighlightingNode(-1)} /></div>
     );
-  },
-
-  _changeHighlightingNode(nodeIndex) {
-    this.props.changeHighlightingNode(nodeIndex);
   },
 
   render() {
     var node = this.props.node;
     return (
       <div className='path-node'>
-        {this._generateNode()}
+        {this._generateNodeLinker()}
         <div className='node-info'>
           <div className='name' title={node.name}>{node.name}</div>
           <Popover placement='leftTop' content={this._generateTooltipContent(node)} title={this._generateTooltipHeader()} trigger='click' overlayClassName='event-info-box' visible={this.state.active}>
-            <div className={`node-icon ${this.state.active ? 'active highlight' : ''} ${node.t}`} onClick={() => this._changeHighlightingNode(this.props.index)}>
+            <div className={`node-icon ${this.state.active ? 'active highlight' : ''} ${node.t}`} onClick={() => this.props.changeHighlightingNode(this.props.index)}>
               {this._generateIcon(node.t)}
             </div>
           </Popover>

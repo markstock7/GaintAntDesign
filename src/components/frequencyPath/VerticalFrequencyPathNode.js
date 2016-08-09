@@ -1,9 +1,14 @@
 /**
- * 每个频繁路径中的一个节点
+ * 竖直频繁路径中的每个节点
  *
  * FrequencyPath Props
+ *
  * node {Object}
  * index {Int}
+ * total {Index}
+ * pathIndex {Index}
+ * changeHighlightingNode {Function}
+ * highlightingNode {Object}
  *
  */
 
@@ -18,21 +23,20 @@ const VerticalFrequencyPathNode = React.createClass({
   },
 
   propTypes: {
-    index: PropTypes.number,
-    node: PropTypes.object,
-    changeHighlightingNode: PropTypes.func,
-    highlightingNode: PropTypes.object
+    index: PropTypes.number.isRequired,
+    node: PropTypes.object.isRequired,
+    total: PropTypes.number.isRequired,
+    pathIndex: PropTypes.number.isRequired,
+    changeHighlightingNode: PropTypes.func.isRequired,
+    highlightingNode: PropTypes.object.isRequired
   },
 
   getInitialState() {
-    return {
-      // 正在编辑的节点
-      active: false
-    };
+    return { active: false  };
   },
 
   componentWillReceiveProps(nextProps) {
-    var active = nextProps.highlightingNode.node === nextProps.index && nextProps.highlightingNode.path === nextProps.pathIndex;
+    var active = nextProps.highlightingNode.node === nextProps.index && nextProps.highlightingNode.path === nextProps.pathIndex && nextProps.highlightingNode.pos === 1;
     if (active !== this.state.active) {
       this.setState({ active });
     }
@@ -62,7 +66,6 @@ const VerticalFrequencyPathNode = React.createClass({
     switch (type) {
       case 'click':
         return (<Icon type='pushpin' />);
-
       case 'page':
         return (<Icon type='book' />);
       case 'text':
@@ -112,12 +115,8 @@ const VerticalFrequencyPathNode = React.createClass({
 
   _generateTooltipHeader() {
     return (
-      <div className='header'>步骤详情<Icon type='cross' className='icon' onClick={() => this._changeHighlightingNode(-1)} /></div>
+      <div className='header'>步骤详情<Icon type='cross' className='icon' onClick={() => this.props.changeHighlightingNode(-1)} /></div>
     );
-  },
-
-  _changeHighlightingNode(nodeIndex) {
-    this.props.changeHighlightingNode(nodeIndex);
   },
 
   render() {
@@ -130,8 +129,8 @@ const VerticalFrequencyPathNode = React.createClass({
               <div className='node-name'>{node.name}</div>
               <div className='event-name'>指标名称: 暂时还木有<i className='anticon anticon-right'></i></div>
             </div>
-            <Popover placement='leftTop' content={this._generateTooltipContent(node)} title={this._generateTooltipHeader()} trigger='click' overlayClassName='event-info-box' visible={this.state.active}>
-              <div className={`node-icon ${node.t}`} onClick={() => this._changeHighlightingNode(this.props.index)}>
+            <Popover placement='rightTop' content={this._generateTooltipContent(node)} title={this._generateTooltipHeader()} trigger='click' overlayClassName='event-info-box' visible={this.state.active}>
+              <div className={`node-icon ${this.state.active ? 'active highlight' : ''} ${node.t}`} onClick={() => this.props.changeHighlightingNode(this.props.index)}>
                 {this._generateIcon(node.t)}
               </div>
             </Popover>

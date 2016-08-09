@@ -1,10 +1,16 @@
 /**
+ * 纵向的频繁路径
+ *
  * VerticalFrequencyPath Props
- * path {Object}
- * index {Int}
+ *
+ * path                   {Object}
+ * pathIndex              {Int}
+ * changeHighlightingNode {Function}
+ * highlightingNode       {Object}
  */
+
+
 import React          from 'react';
-// import Button         from 'antd/lib/button';
 
 import VerticalFrequencyPathNode from './VerticalFrequencyPathNode';
 
@@ -16,14 +22,26 @@ const VerticalFrequencyPath = React.createClass({
   },
 
   propTypes: {
-    path: PropTypes.object,
-    index: PropTypes.number
+    path: PropTypes.object.isRequired,
+    pathIndex: PropTypes.number.isRequired,
+    changeHighlightingNode: PropTypes.func.isRequired,
+    highlightingNode: PropTypes.object.isRequired
   },
 
   _generateNode() {
     var len = this.props.path.items.length;
     return this.props.path.items.map((item, index) => {
-      return (<VerticalFrequencyPathNode node={item} total={len} index={index} key={index} changeHighlightingNode={this.props.changeHighlightingNode} highlightingNode={this.props.highlightingNode} />);
+      return (
+        <VerticalFrequencyPathNode
+          node={item}
+          total={len}
+          index={index}
+          key={index}
+          pathIndex={this.props.pathIndex}
+          changeHighlightingNode={this.props.changeHighlightingNode}
+          highlightingNode={this.props.highlightingNode}
+        />
+      );
     });
   },
 

@@ -1,15 +1,15 @@
-  /**
+/**
  * FrequencyPath Props
- * path {Object}
- * index {Int}
- * editingPath {Int} 当前正在编辑的path id
- * openEditBox {Fn} 打开编辑窗口
- * closeEditBox {Fn} 关闭编辑窗口
- * changeHighlightingNode {Fn} 改变正在高亮的节点
- * highlightingNode {Object} 当强正在高亮的节点
+ *
+ * path                     {Object}  当前路径的详细信息
+ * index                    {Int}     当前路径的编号
+ * editingPath              {Int}     当前正在编辑的path id
+ * highlightingNode         {Object}  当强正在高亮的节点
+ * changeCurrentEditingPath {Fn}      改变正在编辑的path
+ * changeHighlightingNode   {Fn}      改变正在高亮的节点
  */
-import React          from 'react';
-import Button         from 'antd/lib/button';
+import React             from 'react';
+import Button            from 'antd/lib/button';
 
 import FrequencyPathNode from './FrequencyPathNode';
 import FrequencyEditBox  from './FrequencyEditBox';
@@ -22,46 +22,72 @@ const FrequencyPath = React.createClass({
   },
 
   propTypes: {
-    path: PropTypes.object,
-    index: PropTypes.number,
-    editingPath: PropTypes.number,
-    openEditBox: PropTypes.func,
-    closeEditBox: PropTypes.func
+    path: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired,
+    editingPath: PropTypes.number.isRequired,
+    highlightingNode: PropTypes.object.isRequired,
+    changeCurrentEditingPath: PropTypes.func.isRequired,
+    changeHighlightingNode: PropTypes.func.isRequired
   },
 
   getInitialState() {
-    return {
-      // 正在编辑的节点
-      editingNodeIndex: -1
-    };
+    return {};
   },
 
+  /**
+   * 生成 FrequencyPathNode 节点
+   */
   _generateNode() {
     return this.props.path.items.map((item, index) => {
-      return (<FrequencyPathNode node={item} index={index} key={index} pathIndex={this.props.index} changeHighlightingNode={this._changeHighlightingNode} highlightingNode={this.props.highlightingNode} />);
+      return (
+        <FrequencyPathNode
+          node={item}
+          index={index}
+          key={index}
+          pathIndex={this.props.index}
+          changeHighlightingNode={this._changeHighlightingNode}
+          highlightingNode={this.props.highlightingNode}
+        />
+      );
     });
   },
 
+  /**
+   * toggle 编辑框
+   */
   _toggleEditBox() {
     if (this.props.index === this.props.editingPath) {
-      this.props.closeEditBox();
+      this.props.changeCurrentEditingPath(-1);
     } else {
-      this.props.openEditBox(this.props.index);
+      this.props.changeCurrentEditingPath(this.props.index);
     }
     this.props.changeHighlightingNode(-1);
   },
 
+  /**
+   * 检查当前节点是否为编辑状态
+   *
+   * @param {Any} trueV 当为编辑状态时返回
+   * @param {Any} falseV 当为关闭状态时返回
+   */
   _checkIsEditing(trueV, falseV) {
     return this.props.index === this.props.editingPath ? trueV : falseV;
   },
 
   /**
-   * 改变正在高亮的节点
+   * 改变横向的节点高亮
    * @param nodeIndex {Int} node的节点号
-   * @param pathIndex {Int | NULL} 当不设置的时候为取消
    */
   _changeHighlightingNode(nodeIndex) {
-    this.props.changeHighlightingNode(this.props.index, nodeIndex);
+    this.props.changeHighlightingNode(this.props.index, nodeIndex, 0);
+  },
+
+  /**
+   * 改变纵向的节点高亮
+   * @param nodeIndex {Int} node的节点号
+   */
+  _changeHighlightingVerticalNode(nodeIndex) {
+    this.props.changeHighlightingNode(this.props.index, nodeIndex, 1);
   },
 
   render() {
@@ -81,7 +107,13 @@ const FrequencyPath = React.createClass({
             <Button type='primary' disabled={this.props.editingPath > -1 && !this._checkIsEditing(true, false) ? 'disabled' : ''} onClick={this._toggleEditBox}>{this._checkIsEditing('取消', '保存漏斗')}</Button>
           </div>
         </div>
-        <FrequencyEditBox visiable={this._checkIsEditing(true, false)} path={this.props.path} changeHighlightingNode={this._changeHighlightingNode} highlightingNode={this.props.highlightingNode} />
+        <FrequencyEditBox
+          path={this.props.path}
+          pathIndex={this.props.index}
+          highlightingNode={this.props.highlightingNode}
+          visiable={this._checkIsEditing(true, false)}
+          changeHighlightingNode={this._changeHighlightingVerticalNode}
+        />
       </div>
     );
   }

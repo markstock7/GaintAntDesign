@@ -30,6 +30,7 @@ var VerticalTabsPane = React.createClass({
     /**
      * 默认为关闭状态，鼠标经过后进入hover状态，点击为open状态
      */
+     console.log(this.props);
     return {
       active: this.props.selectedKey === this.props._key
     };

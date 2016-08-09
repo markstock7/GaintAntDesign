@@ -69,7 +69,6 @@ BubbleMenuItem = React.createClass({
   },
 
   render() {
-
     return (
       <div role='tab'
         className={`gui-bubble-menu ${this.state.status}`}
